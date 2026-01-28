@@ -7,6 +7,7 @@
     <groupId>org.myApp</groupId>
     <artifactId>ui-async-test-suite</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <packaging>pom</packaging>
 
     <properties>
