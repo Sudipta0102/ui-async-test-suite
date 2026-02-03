@@ -1,0 +1,12 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+chaos:
+  failure-rate: ${FAILURE_RATE:0.0}
+  max-delay-ms: ${MAX_DELAY_MS:0}
