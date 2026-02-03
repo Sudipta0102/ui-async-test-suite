@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class InMemoryFeatureStore implements FeatureStore {
 
     // Concurrent maps enables async writes safely
-    private final Map<FeatureFlag, FeatureStore> store = new ConcurrentHashMap<>();
+    private final Map<FeatureFlag, FeatureState> store = new ConcurrentHashMap<>();
 
     // UI polls this continuously, expecting continuous updates
     // So, in a way, it always returns the current state
