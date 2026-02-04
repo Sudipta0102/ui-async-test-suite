@@ -3,6 +3,7 @@ package org.myApp.uibackend.api.feature;
 import org.myApp.uibackend.domain.feature.FeatureFlag;
 import org.myApp.uibackend.domain.feature.FeatureState;
 import org.myApp.uibackend.service.FeatureService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -33,10 +34,16 @@ public class FeatureController {
     // Toggle endpoint
     // UI requests change, backend responds immediately, but applies update asynchronously later.
     @PostMapping("/{flag}")
-    public void toggle(
-            @PathVariable FeatureFlag flag,
-            @RequestParam boolean enabled
-    ){
-        service.requestChange(flag, enabled);
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void toggle(@PathVariable("flag") String flag){
+
+        FeatureFlag featureFlag = FeatureFlag.valueOf(flag);
+
+        boolean currentState = service
+                .snapshot()
+                .get(featureFlag)
+                .enabled();
+
+        service.requestChange(featureFlag, !currentState);
     }
 }
