@@ -7,8 +7,8 @@ package org.myApp.uibackend.domain.feature;
  */
 public enum FeatureFlag {
 
-    DARK_MODE,
-    BETA_SEARCH,
-    FAST_CHECKOUT
+    SLOW_COOKED_MUTTON,
+    LATE_DELIVERY,
+    MEET_AT_CROSSROADS
 
 }
