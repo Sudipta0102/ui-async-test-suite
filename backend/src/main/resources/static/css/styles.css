@@ -1,0 +1,153 @@
+
+/*   GLOBAL LAYOUT */
+
+/* Keep things readable and neutral */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 20px;
+  background-color: #f9f9f9;
+  color: #222;
+}
+
+/* Section spacing */
+section {
+  margin-bottom: 30px;
+}
+
+/* Headings */
+h2 {
+  margin-bottom: 15px;
+}
+
+
+/*   LOGIN SECTION */
+
+#login-section {
+  max-width: 400px;
+}
+
+/* Stack inputs cleanly */
+#login-section div {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+input {
+  width: 100%;
+  padding: 6px;
+  font-size: 1rem;
+}
+
+/* Login button */
+#login-button {
+  padding: 8px 14px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Disabled state should be obvious */
+#login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Login loading indicator */
+#login-loading {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Login error message */
+#login-error {
+  margin-top: 10px;
+  color: #b00020;
+  font-weight: bold;
+}
+
+/* ===============================
+   Dashboard header
+   =============================== */
+
+#system-status {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 15px;
+}
+
+/* Health / chaos indicators */
+#backend-health-status,
+#chaos-enabled {
+  font-weight: bold;
+}
+
+/* ===============================
+   Feature table
+   =============================== */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #fff;
+}
+
+/* Table headers */
+th {
+  text-align: left;
+  padding: 8px;
+  background-color: #eee;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Table cells */
+td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Action buttons */
+td button {
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+/* Disabled toggle buttons */
+td button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   Async state visibility
+   =============================== */
+
+/* Pending state should look "in progress" */
+.status-PENDING {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* Failed state should scream */
+.status-FAILED {
+  color: #b00020;
+  font-weight: bold;
+}
+
+/* Active state stays neutral */
+.status-ACTIVE {
+  color: #006400;
+}
+
+/* ===============================
+   Footer
+   =============================== */
+
+footer {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #555;
+}

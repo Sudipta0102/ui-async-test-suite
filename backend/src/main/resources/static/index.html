@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UI Async Test Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+    <section id="login-section">
+        <h2>Login</h2>
+
+        <label for="username-input">Username</label>
+        <input id="username-input" type="text" autocomplete="off"/>
+
+        <label for="password-input">Password</label>
+        <input id="password-input" type="password" autocomplete="off">
+
+        <button id="login-button">Login</button>
+
+        <!-- Visible loading indicator during async login -->
+        <div id="login-loading" hidden>Authenticating…</div>
+
+        <div id="login-error" role="alert" hidden></div>
+    </section>
+
+
+    <section id="dashboard-section" hidden>
+        <header>
+            <h2>Feature Flag Dashboard</h2>
+
+            <div id="system-status">
+                <!-- Backend health indicator -->
+                <div id="backend-health">
+                    Backend Status:
+                    <span id="backend-health-status">UNKNOWN</span>
+                </div>
+
+                <!-- Chaos configuration visibility -->
+                <div id="chaos-status">
+                    Chaos-Enabled:
+                    <!-- informs whether delay/failure injection is active -->
+                    <span id="chaos-enabled">UNKNOWN</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main content area -->
+        <main>
+
+            <!-- Feature Flag Table-->
+            <table id="features-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>        <!-- Feature name -->
+                        <th>State</th>          <!-- ON/OFF -->
+                        <th>Status</th>         <!-- ACTIVE/PENDING/FAILED -->
+                        <th>Actions</th>        <!-- Toggle Button -->
+                    </tr>
+                </thead>
+
+                <!-- Table body dynamically rendered on each poll -->
+                <tbody id="features-table-body">
+                    <!-- Rows injected by features.js -->
+                </tbody>
+            </table>
+
+        </main>
+
+        <!-- Footer used to expose polling activity -->
+        <footer>
+            <div>
+                Last Refresh:
+                <!-- Timestamp updated on every polling cycle -->
+                <span id="last-refresh-timestamp">never</span>
+            </div>
+        </footer>
+
+
+    </section>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
