@@ -1,5 +1,6 @@
 package org.myApp.uibackend.config;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -46,6 +47,11 @@ public class SecurityProperties {
         if (password == null || password.isBlank()) {
             throw new IllegalStateException("SECURITY_PASSWORD is not set");
         }
+    }
+
+    @PostConstruct
+    public void init(){
+        validate();
     }
 
 }

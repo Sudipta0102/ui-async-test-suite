@@ -28,13 +28,10 @@ public class LoginController {
      // - UI handles success/failure state
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public void login(
-            @RequestParam String username,
-            @RequestParam String password
-    ){
+    public void login(@RequestBody LoginRequest request){
 
         // Validate creds
-        boolean isAuthenticated = authService.authenticate(username, password);
+        boolean isAuthenticated = authService.authenticate(request.getUsername(), request.getPassword());
 
         // Reject invalid login attempts
         if(!isAuthenticated) throw new UnauthorizedException();
