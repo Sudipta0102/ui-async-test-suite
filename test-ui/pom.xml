@@ -3,34 +3,48 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- Parent  -->
     <parent>
         <groupId>org.myApp</groupId>
         <artifactId>ui-async-test-suite</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <!-- Who am I -->
     <artifactId>test-ui</artifactId>
     <packaging>jar</packaging>
 
-    <name>ui-async-selenium-tests</name>
+    <name>UI Async Test Platform</name>
     <description>
-        Selenium testng test suite
+        Selenium-based UI test platform for validating asynchronous,
+        eventually consistent systems with intentional instability.
     </description>
 
-    <!-- Versions local to test module -->
+    <!--  Properties  -->
     <properties>
-        <selenium.version>4.21.0</selenium.version>
-        <testng.version>7.10.2</testng.version>
-        <slf4j.version>2.0.13</slf4j.version>
+        <!-- Test-only dependencies -->
+        <selenium.version>4.18.1</selenium.version>
+        <testng.version>7.9.0</testng.version>
+        <assertj.version>3.25.3</assertj.version>
+        <restassured.version>5.4.0</restassured.version>
+        <jackson.version>2.17.0</jackson.version>
+        <slf4j.version>2.0.12</slf4j.version>
+        <logback.version>1.5.3</logback.version>
+        <commons.lang.version>3.14.0</commons.lang.version>
     </properties>
 
+
+    <!-- Who am I depending on -->
     <dependencies>
+        <!--  Selenium  -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
 
+        <!-- Test Framework -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -38,27 +52,75 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Logging API -->
+        <!-- Assertions  -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+        </dependency>
+
+        <!-- Backend Observability -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version>
+        </dependency>
+
+        <!-- JSON Parsing -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!--  Logging  -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
+        <!-- Utilities -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons.lang.version}</version>
         </dependency>
 
     </dependencies>
 
+
+    <!-- Build -->
     <build>
         <plugins>
+
+            <!-- Surefire inherits version + defaults from root -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <!-- version + module-path config inherited -->
                 <configuration>
+
+                    <!-- TestNG suite is explicit and intentional -->
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
+
+                    <!-- Async-safe parallelism -->
+                    <parallel>methods</parallel>
+                    <threadCount>4</threadCount>
+
+                    <!-- CI observability -->
+                    <systemPropertyVariables>
+                        <test.module>ui</test.module>
+                    </systemPropertyVariables>
+
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>
