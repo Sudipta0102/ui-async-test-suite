@@ -1,5 +1,6 @@
 package org.myApp.ui.driver.strategy;
 
+import org.myApp.ui.config.GridConfig;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -14,30 +15,16 @@ public class RemoteChromeStrategy implements BrowserStrategy{
 
     @Override
     public WebDriver createDriver() {
+        try {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--disable-dev-shm-usage", "--no-sandbox");
 
-        ChromeOptions options = new ChromeOptions();
-
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-
-        //WebDriver remoteDriver = createRemoteDriver(options);
-        //return remoteDriver;
-
-        return createRemoteDriver(options);
-    }
-
-    private WebDriver createRemoteDriver(ChromeOptions options){
-
-        try{
-            return new RemoteWebDriver(new URL(gridUrl()), options);
-        }catch (Exception e){
-            throw new RuntimeException("Failed to start remote chrome session");
+            return new RemoteWebDriver(
+                    new URL(GridConfig.gridUrl()),
+                    options
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to start remote chrome session", e);
         }
-    }
-
-    private String gridUrl(){
-        return System.getProperty("seleniumGridUrl",
-                                        System.getenv().getOrDefault("SELENIUM_GRID_URL",
-                                                                "http://localhost:4444/wd/hub"));
     }
 }

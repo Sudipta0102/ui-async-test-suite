@@ -21,27 +21,29 @@ public enum BrowserType {
     CHROME,
     FIREFOX;
 
-    public static BrowserType fromEnv(){
-
-        // -Dbrowser=firefox i.e Maven
-        String browserFromSystemProp = System.getProperty("browser");
-
-        // env var BROWSER=firefox
-        String browserFromEnv = System.getenv("BROWSER");
-
-        String browser = pickFirstDefinedBrowser(browserFromSystemProp, browserFromEnv, "CHROME");
-
-        return Arrays.stream(values())
-                .filter(browserType -> browserType.name().equalsIgnoreCase(browser))
-                .findFirst()
-                .orElseThrow(()-> new IllegalArgumentException("Unsupported Browser:" + browser));
-
-    }
-
-    private static String pickFirstDefinedBrowser(String... options){
-        return Arrays.stream(options)
-                .filter(op -> op != null && !op.trim().isEmpty())
-                .findFirst()
-                .orElse(null);
-    }
 }
+
+//    public static BrowserType fromConfig(){
+//
+//        // -Dbrowser=firefox i.e Maven
+//        String browserFromSystemProp = System.getProperty("browser");
+//
+//        // env var BROWSER=firefox
+//        String browserFromEnv = System.getenv("BROWSER");
+//
+//        String browser = pickFirstDefinedBrowser(browserFromSystemProp, browserFromEnv, "CHROME");
+//
+//        return Arrays.stream(values())
+//                .filter(browserType -> browserType.name().equalsIgnoreCase(browser))
+//                .findFirst()
+//                .orElseThrow(()-> new IllegalArgumentException("Unsupported Browser:" + browser));
+//
+//    }
+//
+//    private static String pickFirstDefinedBrowser(String... options){
+//        return Arrays.stream(options)
+//                .filter(op -> op != null && !op.trim().isEmpty())
+//                .findFirst()
+//                .orElse(null);
+//    }
+
