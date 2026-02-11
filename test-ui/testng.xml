@@ -1,0 +1,63 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="UI Async Test Suite"
+       verbose="1"
+       parallel="methods"
+       thread-count="4"
+       configfailurepolicy="skip">
+    <!--
+        What skip does:
+            - If a @BeforeSuite, @BeforeClass, etc. fails then dependent tests are skipped
+            The suite stops meaningfully, without cascading noise
+    -->
+
+    <!-- Global Parameters -->
+    <!-- <parameter name="baseUrl" value="http://localhost:8084"/>  -->
+
+    <!-- Listeners (Observability & Diagnostics) -->
+    <listeners>
+        <!-- Future-proof: retry, diagnostics, reporting -->
+        <!-- <listener class-name="com.org.myApp.ui.retry.RetryListener"/> -->
+        <!-- <listener class-name="com.org.myApp.ui.diagnostics.TestFailureListener"/> -->
+    </listeners>
+
+    <!-- Smoke Tests (Fast, Gatekeeper) -->
+    <test name="Smoke Tests">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+
+        <packages>
+            <package name="org.myApp.ui.smoke"/>
+        </packages>
+    </test>
+
+    <!-- Async / Eventual Consistency Tests -->
+    <test name="Async Convergence Tests">
+        <groups>
+            <run>
+                <include name="async"/>
+            </run>
+        </groups>
+
+        <packages>
+            <package name="org.myApp.ui.async"/>
+        </packages>
+    </test>
+
+    <!-- Chaos / Failure Injection Tests -->
+    <test name="Chaos Tests">
+        <groups>
+            <run>
+                <include name="chaos"/>
+            </run>
+        </groups>
+
+        <packages>
+            <package name="org.myApp.ui.chaos"/>
+        </packages>
+    </test>
+
+</suite>
